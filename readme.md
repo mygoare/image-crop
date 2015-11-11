@@ -10,4 +10,5 @@ and resize through adding `size` parameter after the link, like this: `http://lo
 
 ### Note:
 
-Sometimes need turn OFF Astrill to make sure upload files successfully.
+1. You need install  GraphicsMagick or ImageMagick (gm module depends on it) first.
+2. Sometimes need turn OFF Astrill to make sure upload files successfully.
