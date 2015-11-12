@@ -1,8 +1,9 @@
 $(function(){
+    var host = 'http://localhost:3000';
     var ajaxUploadFile = function(formData){
         $.ajax(
             {
-                url: '/upload',
+                url: host+'/upload',
                 method: 'post',
                 processData: false,
                 contentType: false,
@@ -12,7 +13,7 @@ $(function(){
 
                     // $('#crop-image').attr('src', '/files/' + data.fileUrl);
                     var img = new Image();
-                    img.src = '/files/' + data.fileUrl;
+                    img.src = host+'/files/' + data.fileUrl;
                     img.onload = function()
                     {
                         var self = this;
@@ -62,7 +63,7 @@ $(function(){
                         });
                         $cropImageDiv.find('> button').on('click', function(){
                             $.ajax({
-                                url: '/crop',
+                                url: host+'/crop',
                                 method: 'post',
                                 data: {
                                     cx: cx * proportion,
@@ -74,7 +75,7 @@ $(function(){
                                 success: function(data){
                                     console.log(data);
                                     var img = new Image();
-                                    img.src = data.fileUrl;
+                                    img.src = host+data.fileUrl;
                                     $('#avatar-div').html(img);
 
                                     $.modal.close();
