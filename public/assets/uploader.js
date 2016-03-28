@@ -1,5 +1,5 @@
 $(function(){
-    var host = 'http://localhost:3000';
+    var host = 'http://localhost:3001';
     var ajaxUploadFile = function(formData){
         $.ajax(
             {
