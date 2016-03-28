@@ -1,0 +1,22 @@
+{
+  "name": "img-crop",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "mygoare <mygoare@gmail.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Jcrop": "jcrop#~2.0.3",
+    "jquery-modal": "~0.5.10"
+  }
+}
