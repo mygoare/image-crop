@@ -4,15 +4,12 @@ var path    = require('path');
 var express = require('express');
 var multer  = require('multer');
 var bodyParser = require('body-parser');
+var cors    = require('cors');
 
 var app     = express();
 app.use(express.static('public'));
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+app.use(cors());
 
 var multerUploader  = multer(
     {
@@ -118,15 +115,27 @@ app.get('/files/:hash', function(req, res) {
 
                 gm(filePath)
                 .resize(size, size, "!")
-                .write(filePath+'x'+size, function(err){
+                // .write(filePath+'x'+size, function(err){
+                //     if (err)
+                //     {
+                //         console.log(err)
+                //         res.end();
+                //     }
+                //     else {
+                //         res.setHeader('Content-Type', 'image/png');
+                //         res.sendFile(filePath+'x'+size);
+                //     }
+                // })
+                .toBuffer('png', function(err, buffer){
                     if (err)
                     {
-                        console.log(err)
+                        console.log(err);
                         res.end();
                     }
-                    else {
+                    else
+                    {
                         res.setHeader('Content-Type', 'image/png');
-                        res.sendFile(filePath+'x'+size);
+                        res.send(buffer);
                     }
                 })
             }
@@ -140,7 +149,7 @@ app.get('/files/:hash', function(req, res) {
 });
 
 
-var server = app.listen(3000, function () {
+var server = app.listen(3001, function () {
   var host = server.address().address;
   var port = server.address().port;
 
