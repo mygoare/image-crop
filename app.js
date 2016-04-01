@@ -35,6 +35,32 @@ app.get('/', function(req, res, next) {
 app.get('/upload', function(req, res, next) {
     res.sendFile(path.join(__dirname, 'upload.html'));
 });
+
+app.post('/uploadImageData', urlencodedParser, function(req, res, next){
+    console.log(req.body);
+    var data = req.body.imageData.replace(/^data:image\/\w+;base64,/, "");
+    var buf = new Buffer(data, 'base64');
+    
+    var filename = Math.random() + Date.now() + '.png';
+    var filePath = path.resolve('public/uploads', filename);
+    fs.writeFile(filePath, buf, function(err){
+        if (err)
+        {
+            console.log(err)
+            return res.json({
+                status: -1,
+                msg: 'error, ' + JSON.stringify(err)
+            })            
+        }
+        else
+        {
+            return res.json({
+                status: 1,
+                fileUrl: filename
+            })
+        }
+    })
+});
 app.post('/upload', function(req, res, next){
     multerUploader(req, res, function(err){
         if (err)
